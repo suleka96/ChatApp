@@ -2,9 +2,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
+import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http'
 
 import {AngularFireModule} from 'angularfire2';
-import {AngularFireDatabaseModule} from 'angularfire2/database';
+import {AngularFireDatabaseModule} from "angularfire2/database-deprecated";
 import {AngularFireAuthModule} from 'angularfire2/auth';
 
 
@@ -47,9 +49,14 @@ import { environment } from '../environments/environment';
     AngularFireModule,
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    AngularFireModule.initializeApp(environment.firebase)
+    HttpModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    ChatService,
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

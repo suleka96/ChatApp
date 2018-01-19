@@ -20,37 +20,45 @@ export class ChatService {
     private db: AngularFireDatabase,
     private afAuth: AngularFireAuth
   ) { 
-    this.afAuth.authState.subscribe(auth =>{
-      if(auth !== undefined &&  auth !== null){
-        this.user = auth;
-      }
-    });
+    // this.afAuth.authState.subscribe(auth =>{
+    //   if(auth !== undefined &&  auth !== null){
+    //     this.user = auth;
+    //   }
+    // });
   }
   
-  sentMessage(msg: string){
+  sendMessage(msg: string){
     const timestamp = this.getTimeStamp();
-    const email = this.user.email;
+    // const email = this.user.email;
+    const email = "sulebule@gmail.com";
     this.chatMessages = this.getMessages();
     this.chatMessages.push(
       {
         message: msg,
         timeSent: timestamp,
-        userName: this.userName,
+        // userName: this.userName,
+        userName: "hibi",
         email: email
 
       });
+
+      console.log('called sendMessage()!');
   }
 
   getTimeStamp(){
     const now = new Date();
-    const date = now.getUTCFullYear()+'/'+(now.getUTCMonth()+1)+'/'+now.getUTCDate;
+    const date = now.getUTCFullYear()+'/'+(now.getUTCMonth()+1)+'/'+now.getUTCDay;
     const time = now.getUTCHours()+':'+now.getUTCMinutes+':'+now.getUTCSeconds;
     return (date+' '+time);
   }
 
   getMessages() : FirebaseListObservable<ChatMessage[]>{
-
-    return
+    return this.db.list('messages',{
+      query: {
+        limitToLast: 25,
+        orderByKey: true
+      }
+    });
   }
 
 }

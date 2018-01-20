@@ -1,3 +1,23 @@
-<p>
-  nav-bar works!
-</p>
+<!-- The Angular safe navigation operator (?.) is a more fluent and convenient way to guard against nulls in property paths. 
+The expression bails out when it hits the first null value.
+The display is blank, but the app keeps rolling without errors. -->
+
+<div class="navBar">
+  <div id="logo"></div>
+  <div id="heading"><a routerLink="/">basechat</a></div>
+<div class="links">
+  <span>
+    <a *ngIf="!(user|async)?.uid"  routerLink="/login">Login</a>
+  </span>
+  <span>
+    <a *ngIf="!(user|async)?.uid" routerLink="/signup">Sign Up</a>
+  </span>
+  <span>
+    <span id="userEmail" *ngIf="(user|async)?.uid">Hello, {{userEmail}}</span>
+  </span>
+  <span>
+    <a *ngIf="(user|async)?.uid" href="#" (click)="logout()">Logout</a>
+  </span>
+</div>
+</div>
+

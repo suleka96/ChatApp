@@ -35,6 +35,12 @@ export class ChatService {
     });   
    
   }
+
+  getUsers(){
+    const userId =this.user.uid;
+    const path = `users/${userId}`;
+    return this.db.object(path);
+  }
   
   sendMessage(msg: string){
     const timestamp = this.getTimeStamp();

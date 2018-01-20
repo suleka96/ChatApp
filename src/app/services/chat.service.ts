@@ -36,10 +36,9 @@ export class ChatService {
    
   }
 
-  getUsers(){
-    const userId =this.user.uid;
-    const path = `users/${userId}`;
-    return this.db.object(path);
+  getUsers() {
+    const path = 'users';
+    return this.db.list(path);
   }
   
   sendMessage(msg: string){

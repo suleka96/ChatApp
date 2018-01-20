@@ -20,24 +20,31 @@ export class ChatService {
     private db: AngularFireDatabase,
     private afAuth: AngularFireAuth
   ) { 
-    // this.afAuth.authState.subscribe(auth =>{
-    //   if(auth !== undefined &&  auth !== null){
-    //     this.user = auth;
-    //   }
-    // });
+    this.afAuth.authState.subscribe(auth =>{
+      if(auth !== undefined &&  auth !== null){
+        this.user = auth;
+      }
+
+
+      const userId = this.user.uid;
+      const path = `users/${userId}`;
+      this.db.object(path).subscribe( a =>{
+      this.userName = a.displayName;
+      });
+
+    });   
+   
   }
   
   sendMessage(msg: string){
     const timestamp = this.getTimeStamp();
-    // const email = this.user.email;
-    const email = "sulebule@gmail.com";
+    const email = this.user.email;
     this.chatMessages = this.getMessages();
     this.chatMessages.push(
       {
         message: msg,
         timeSent: timestamp,
-        // userName: this.userName,
-        userName: "hibi",
+        userName: this.userName,
         email: email
 
       });
@@ -47,8 +54,8 @@ export class ChatService {
 
   getTimeStamp(){
     const now = new Date();
-    const date = now.getUTCFullYear()+'/'+(now.getUTCMonth()+1)+'/'+now.getUTCDay;
-    const time = now.getUTCHours()+':'+now.getUTCMinutes+':'+now.getUTCSeconds;
+    const date = now.getUTCFullYear()+'/'+(now.getUTCMonth()+1)+'/'+now.getUTCDay();
+    const time = now.getUTCHours()+':'+now.getUTCMinutes()+':'+now.getUTCSeconds();
     return (date+' '+time);
   }
 

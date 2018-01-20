@@ -1,3 +1,26 @@
-<p>
-  sign-up works!
-</p>
+<div class="form">
+    <div class="content">
+        <div id="signup">
+            <h1>Sign Up to Play</h1>
+            <form #signupForm="ngForm">
+                    <!-- text box to type the email -->
+                <div class="fields">
+                    <input type="email" [(ngModel)]="email" name="email" placeholder="Enter Email" required id="email">
+                </div>
+                    <!-- text box to type the password -->
+                <div class="fields">
+                    <input type="password" [(ngModel)]="password" name="password" placeholder="Enter Password" required >
+                    <p id="error"></p>
+                </div>
+                <div class="fields">
+                    <input  [(ngModel)]="displayName" name="displayName" placeholder="Enter Display Name" required  >
+                    <p>{{errorMsg}}</p>
+                </div>
+                    <!-- signup button -->
+                <button type="button" [disabled]="!signupForm.form.valid" (click)="signUp()" class="btn btn-2 btn-2g authenticate" id="signup">Sign Up</button>
+            </form>
+            <!-- area where errors are shown -->
+            <p>Already have an account? Log-in</p>
+        </div>
+    </div>
+</div>

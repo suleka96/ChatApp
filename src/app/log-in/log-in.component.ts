@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthService} from '../services/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-log-in',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LogInComponent implements OnInit {
 
-  constructor() { }
+  email : string;
+  password: string;
+  errorMsg: string;
+
+  constructor(private auth: AuthService,private router: Router) { }
 
   ngOnInit() {
+  }
+
+  login(){
+      this.auth.login(this.email,this.password)
+      .catch( error => this.errorMsg=error.message);
   }
 
 }

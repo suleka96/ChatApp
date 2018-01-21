@@ -58,10 +58,9 @@ export class ChatService {
   }
 
   getTimeStamp(){
-    const now = new Date();
-    const date = now.getUTCFullYear()+'/'+(now.getUTCMonth()+1)+'/'+now.getUTCDay();
-    const time = now.getUTCHours()+':'+now.getUTCMinutes()+':'+now.getUTCSeconds();
-    return (date+' '+time);
+    const date = new Date().toLocaleDateString();
+    const time = new Date().toLocaleTimeString();
+    return (date+ ' ' + time);
   }
 
   getMessages() : FirebaseListObservable<ChatMessage[]>{
